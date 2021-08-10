@@ -1,8 +1,9 @@
-from typing import Dict, List, Optional, Tuple, TypedDict, Union
+from typing import Dict, List, Optional, Tuple, Union
+from typing_extensions import TypedDict
 
 import numpy as np
 import torch
-from torch.tensor import Tensor
+from torch import Tensor
 from tqdm import tqdm
 from transformers import PreTrainedTokenizer
 
@@ -43,7 +44,8 @@ class BaseDataset(torch.utils.data.Dataset):
         with open(file_path, 'r', encoding='utf-8') as file:
             x, y = [], []
             for i, line in enumerate(file):
-                if (line := line.strip()):
+                line = line.strip()
+                if line:
                     token = line.rsplit('\t', 1)
                     if len(token) == 2:
                         x.append(token[0])
